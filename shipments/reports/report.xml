@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_shipment_card"
+        string="Shipment Card"
+        model="shipments.shipments"
+        report_type="qweb-pdf"
+        name="shipments.report_shipment"
+        file="shipments.report_shipment"/>
+</odoo>

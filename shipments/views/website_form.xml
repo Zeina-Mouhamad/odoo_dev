@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="menu_shipment_form12" model="website.menu">
+        <field name="name">Create Shipment</field>
+        <field name="url">/shipment_webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+
+    <template id="create_shipment" name="Create Shipment">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/webshipment" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="from_address" class="controvaluel-label">From</label>
+                                <input type="text" name="from_address" t-att-value="from_address" id="from_address"
+                                       class="form-control" placeholder="e.g. Jeddah" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                                            <input type="text" name="to_address" t-att-value="to_address" id="to_address"/>
+    <label for="to_address" class="control-label">To</label>
+                                       class="form-control" placeholder="e.g. Riyad" required="required"/>
+                            </div>
+
+                            <!--                            <div class="form-group">-->
+                            <!--                                <label for="type" class="control-label">Type</label>-->
+                            <!--                                <select name="type" class="form-control link-style">-->
+                            <!--                                    <t t-foreach="type" t-as="s">-->
+                            <!--                                        <option t-esc="s.type" t-att-value="type"/>-->
+                            <!--                                    </t>-->
+                            <!--                                </select>-->
+                            <!--                            </div>-->
+
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary pull-left">Create Shipment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="shipment_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/shipment-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">shipments.shipment_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="shipments.shipment_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thanks!</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Your message has been sent successfully.
+                                    </div>
+                                    <p>
+                                        We will get back to you shortly
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>
