@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="shipments.model_shipments_shipments" model="ir.model">
+      <field name="website_form_key">send_mail</field>
+      <field name="website_form_default_field_id" ref="mail.field_mail_mail__body_html" />
+      <field name="website_form_access">True</field>
+      <field name="website_form_label">Create Shipment</field>
+    </record>
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+      <value>shipments.shipments</value>
+      <value eval="[
+        'subject',
+        'body_html',
+        'from_address',
+        'to_address',
+        ]"/>
+    </function>
+</odoo>

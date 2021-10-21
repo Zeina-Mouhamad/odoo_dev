@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.module.category" id="module_category_shipments">
+        <field name="name">Shipments Management</field>
+        <field name="description">Category For Shipments</field>
+    </record>
+    <record id="group_shipments_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_shipments"/>
+    </record>
+    <record id="group_shipments_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="module_category_shipments"/>
+        <field name="implied_ids" eval="[(4, ref('group_shipments_user'))]"/>
+    </record>
+
+</odoo>

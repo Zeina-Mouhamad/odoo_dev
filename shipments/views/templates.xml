@@ -1,0 +1,25 @@
+<odoo>
+ <!-- Mail template are declared in a NOUPDATE block
+        so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_shipment" model="mail.template">
+            <field name="name">Shipments: Send by email</field>
+            <field name="email_to">${object.email_id}</field>
+            <field name="subject">Shipment Card (Veh ${object.name})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.receiver}
+                        <br/>
+                        <br/>
+                        Here is your shipment card from ${object.sender} with vehicle name ${object.name}.<br/>
+                        Do not hesitate to contact us if you have any questions.<br/>
+                        Thank you!
+                    </p>
+                </div>
+            </field>
+
+        </record>
+    </data>
+</odoo>

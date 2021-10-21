@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="shipments.list">
+            <field name="name">shipments list</field>
+            <field name="model">shipments.shipments</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                    <field name="date"/>
+                    <field name="sender"/>
+                    <field name="receiver"/>
+                    <field name="weight"/>
+                    <field name="dimension"/>
+                    <field name="p_type"/>
+                    <field name="p_method"/>
+                    <field name="barcode"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model='ir.ui.view' id='shipments_shipments_form_view'>
+            <field name="name">shipments.shipments.form</field>
+            <field name="model">shipments.shipments</field>
+            <field name="arch" type="xml">
+                <form string="Shipments">
+                    <header>
+                        <button name="action_send_email" type="object" string="Confirm" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <field name="image" widget='image' class="oe_avatar"
+                        />
+                        <group string="Address Information">
+                            <group>
+                                <field name="type"/>
+                                <field name="company"/>
+                                <field name="barcode"/>
+                            </group>
+                            <group>
+                                <field name="sender"/>
+                                <field name="from_address"/>
+                                <field name="receiver"/>
+                                <field name="to_address"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Shipment Information">
+                                <group>
+
+                                    <field name="date"/>
+                                    <field name="weight"/>
+                                    <field name="dimension"/>
+                                    <field name="specifications"/>
+                                    <field name="expiry"/>
+                                    <field name="ex_date" attrs="{'invisible': [('expiry','=',False)]}"/>
+                                    <field name="attachment_id" widget="many2many_binary" class="oe_inline"/>
+
+                                </group>
+                            </page>
+                            <page string="Payment Information">
+                                <group>
+                                    <field name="p_type"/>
+                                    <field name="p_method"/>
+                                    <field name="note"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- actions opening views on models -->
+        <record id="shipment_kanban" model="ir.ui.view">
+            <field name="model">shipments.shipments</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="type"/>
+                    <field name="from_address"/>
+                    <field name="to_address"/>
+                    <field name="sender"/>
+                    <field name="receiver"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <ul>
+
+                                        <li>
+                                            <field name="type"/>
+                                        </li>
+                                        <li>
+                                            <field name="from_address"/>
+                                        </li>
+                                        <li>
+                                            <field name="to_address"/>
+                                        </li>
+                                        <li>
+                                            <field name="sender"/>
+                                        </li>
+                                        <li>
+                                            <field name="receiver"/>
+                                        </li>
+                                        <li>
+                                            <field name="barcode"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- server action to the one above -->
+
+        <!--        <record model="ir.actions.server" id="shipments.action_server">-->
+        <!--            <field name="name">shipments server</field>-->
+        <!--            <field name="model_id" ref="model_shipments_shipments"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">-->
+        <!--                action = {-->
+        <!--                "type": "ir.actions.act_window",-->
+        <!--                "view_mode": "tree,form",-->
+        <!--                "res_model": model._name,-->
+        <!--                }-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <record model="ir.actions.act_window" id="shipments_list_action">
+            <field name="name">shipments</field>
+            <field name="res_model">shipments.shipments</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first shipment
+                </p>
+            </field>
+        </record>
+
+        <!-- top level menu: no parent -->
+        <menuitem id="main_shipment_menu" name="shipments" web_icon="shipments,static/description/icon.png"/>
+        <!-- A first level in the left side menu is needed
+             before using action= attribute -->
+        <menuitem id="shipment_menu" name="Open shipment"
+                  parent="main_shipment_menu"/>
+        <!-- the following menuitem should appear after
+             its parent openacademy_menu and after its
+             action course_list_action -->
+        <menuitem id="shipments_menu" name="shipments" parent="shipment_menu"
+                  action="shipments_list_action"/>
+        <!-- Full id location:
+             action="openacademy.course_list_action"
+             It is not required when it is the same module -->
+
+    </data>
+</odoo>
